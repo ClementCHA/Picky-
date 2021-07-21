@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node .",
     "dev": "node-dev index.js",
-    "import": "psql -f ./data/seeding.sql -d picky"
+    "import": "psql -f ./data/seeding.sql -d picky",
+    "docker:build": "docker build -t picky-backend .",
+    "docker:start": "docker compose up -d",
+    "docker:stop": "docker compose down"
   },
   "author": "Picky",
   "license": "ISC",

@@ -1,10 +1,9 @@
-import axios from 'axios'
-
-import {updateProfilErrorForPswd, updateProfilErrorEmailOrPseudo, actionSaveProfil, GET_PROFIL, PATCH_PROFIL, DELETE_PROFIL, PATCH_PSWD_PROFIL } from 'src/actions/profil'
-import { resetProfil } from 'src/actions/profil';
-import { reset, logout } from 'src/actions/user'
-import {toast } from 'react-toastify';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { actionSaveProfil, DELETE_PROFIL, GET_PROFIL, PATCH_PROFIL, PATCH_PSWD_PROFIL, resetProfil, updateProfilErrorEmailOrPseudo, updateProfilErrorForPswd } from 'src/actions/profil';
+import { logout, reset } from 'src/actions/user';
+
 const notify = () => {toast.success("Pseudo et/ou Email modifié !"),{
 position: "top-right",
 autoClose: 5000,
@@ -34,7 +33,7 @@ const profil =  (store) => (next) => (action) => {
   switch (action.type){
     case GET_PROFIL: {
       const state = store.getState();
-      axios.get('https://projet-picky.herokuapp.com/member', {
+      axios.get('/api/picky/member', {
         headers: {
           "Bearer": `${store.getState().status.token}`,
           "Accept": "application/json",
@@ -73,7 +72,7 @@ const profil =  (store) => (next) => (action) => {
         email: email,
      };*/
      
-      axios.patch('https://projet-picky.herokuapp.com/member',
+      axios.patch('/api/picky/member',
         bodyParameters,
         config
       )
@@ -106,7 +105,7 @@ const profil =  (store) => (next) => (action) => {
         confirmationPassword: state.user.confirmationPassword,
      };
      
-      axios.patch('https://projet-picky.herokuapp.com/member',
+      axios.patch('/api/picky/member',
         bodyParameters,
         config
       )
@@ -125,7 +124,7 @@ const profil =  (store) => (next) => (action) => {
     }
 
     case DELETE_PROFIL: {
-      axios.delete('https://projet-picky.herokuapp.com/member', {
+      axios.delete('/api/picky/member', {
         headers: {
           "Bearer": `${store.getState().status.token}`
         },

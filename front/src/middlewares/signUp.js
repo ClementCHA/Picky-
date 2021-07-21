@@ -1,11 +1,11 @@
-import axios from 'axios'; 
-import { SIGN_UP, updateSignInError } from 'src/actions/user'
+import axios from 'axios';
+import { SIGN_UP, updateSignInError } from 'src/actions/user';
 const signUp = (store) => (next) => (action) => {
   switch (action.type){
     case SIGN_UP: {
 
       const state = store.getState();
-      axios.post('https://projet-picky.herokuapp.com/signup', {
+      axios.post('/api/picky/signup', {
         pseudo: state.user.pseudo,
         email: state.user.email,
         password: state.user.password,

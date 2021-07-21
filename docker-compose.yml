@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  picky-postgres:
+    image: postgres:13.3
+    container_name: picky-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=picky
+  picky-backend:
+    image: picky-backend
+    container_name: picky-backend
+    environment:
+        - PORT=3000
+        - PGUSER=postgres
+        - PGPASSWORD=${PGPASSWORD}
+        - PGDATABASE=picky
+        - DATABASE_URL=${DATABASE_URL}
+        - BETASERIES_API_KEY=${BETASERIES_API_KEY}
+        - secret=${secret}
+  picky-front:
+    image: picky-front
+    container_name: picky-front
+    volumes:
+        - ./config/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+        - '7777:80'

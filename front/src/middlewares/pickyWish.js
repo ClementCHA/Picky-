@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ADD_TO_WISH, REMOVE_FROM_WISH, GET_BOOKMARK, GET_BOOKMARKS_IDS, getBookmarkSuccess, getBookmarksIdsSuccess, getBookmarksIds, getBookmark } from 'src/actions/watchlist';
+import { ADD_TO_WISH, getBookmark, getBookmarksIds, getBookmarksIdsSuccess, getBookmarkSuccess, GET_BOOKMARK, GET_BOOKMARKS_IDS, REMOVE_FROM_WISH } from 'src/actions/watchlist';
 
 const notifyAdd = () => {toast.success("Ce programme a bien été ajouté à votre watchlist"),{
   position: "top-right",
@@ -46,7 +46,7 @@ const pickyWish = (store) => (next) => (action) => {
         };
         
         // Adds the program to the watchlist with every information needed
-        axios.post('https://projet-picky.herokuapp.com/bookmark',
+        axios.post('/api/picky/bookmark',
           bodyParameters,
           config
           )
@@ -67,7 +67,7 @@ const pickyWish = (store) => (next) => (action) => {
       
       
       // Deletes the program from the watchlist thanks to its ID
-      axios.delete(`https://projet-picky.herokuapp.com/bookmark/${programId}`,
+      axios.delete(`/api/picky/bookmark/${programId}`,
         config
         )
         .then(() => {
@@ -82,7 +82,7 @@ const pickyWish = (store) => (next) => (action) => {
     }
 
     case GET_BOOKMARK: {
-    axios.get('https://projet-picky.herokuapp.com/member/bookmark',
+    axios.get('/api/picky/member/bookmark',
     config)
     .then ((response) => {
       // Gets all the programs that are currently in the watchlist
@@ -121,7 +121,7 @@ const pickyWish = (store) => (next) => (action) => {
   };
 
   case GET_BOOKMARKS_IDS: {
-      axios.get('https://projet-picky.herokuapp.com/member/bookmark',
+      axios.get('/api/picky/member/bookmark',
     config)
     .then ((response) => {
       // Gets all the programs that are currently in the watchlist
